@@ -9,4 +9,13 @@ public class HealthCheck {
     public String sayHello(){
         return "hello the app is working";
     }
+
+    @GetMapping("/admin")
+    public String forAdmin(){
+        return "hi admin";
+    }
+    @GetMapping("/user")
+    public String forUser(){
+        return "hi user";
+    }
 }
