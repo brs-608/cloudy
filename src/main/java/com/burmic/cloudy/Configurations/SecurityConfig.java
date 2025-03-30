@@ -42,30 +42,25 @@ public class SecurityConfig  {
 
     @Autowired
     DataSource dataSource;
-//    @Autowired
     JwtFilter jwtFilter;
-//    @Autowired
     public SecurityConfig(@Lazy JwtFilter jwtFilter){
         this.jwtFilter = jwtFilter;
     }
 
-//    @Autowired
-//    public void setJwtFilter(JwtFilter jwtFilter) {
-//        this.jwtFilter = jwtFilter;
-//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.csrf((csrf) ->{
-//            csrf.ignoringRequestMatchers("/users/create-user");
-//            csrf.ignoringRequestMatchers("/auth/login");
             csrf.disable();
         });
         http.authorizeHttpRequests((authz) -> {
             authz.requestMatchers("/user").hasRole("User");
             authz.requestMatchers("/auth/login").permitAll();
+//            authz.requestMatchers("/users/get-user/**").permitAll();
             authz.requestMatchers("/").permitAll();
-            authz.requestMatchers("/users/create-user").permitAll();
+            authz.requestMatchers("/chat","/chat/history/**").permitAll();
+
+            authz.requestMatchers("/auth/create-user").permitAll();
             authz.requestMatchers("/admin/**").hasRole("Admin");
             authz.anyRequest().authenticated();
         });

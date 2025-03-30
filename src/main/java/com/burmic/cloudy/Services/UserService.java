@@ -6,13 +6,17 @@ import com.burmic.cloudy.Enums.Role;
 import com.burmic.cloudy.Entities.User;
 import com.burmic.cloudy.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
-public class UserService {
+public class UserService  {
     @Autowired
     UserRepository userRepository;
     PasswordEncoder passwordEncoder;
@@ -23,7 +27,7 @@ public class UserService {
         String encodedPassword = passwordEncoder.encode(password);
         User user = new User();
         user.setDate_of_birth(date_of_birth);
-        user.setEmail_id(email_id);
+        user.setEmailId(email_id);
         user.setGender(gender);
         user.setFirst_name(first_name);
         user.setLast_name(last_name);
@@ -37,5 +41,11 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
+    public User getUserByEmail(String email_id){
+        return userRepository.findUserByEmailId(email_id).orElse(null);
+    }
+    public List<User> getAll(){
+        return userRepository.findAll();
+    }
 
 }

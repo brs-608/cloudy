@@ -10,9 +10,6 @@ import java.util.*;
 
 @Entity
 @Table(name = "users")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 //@Getter
 //@Setter
 public class User  {
@@ -25,8 +22,8 @@ public class User  {
     private String last_name;
     @Column(nullable = false)
     private String phone_number;
-    @Column(nullable = false,unique = true)
-    private String email_id;
+    @Column(nullable = false,unique = true,name = "email_id")
+    private String emailId;
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
@@ -40,6 +37,22 @@ public class User  {
     private Date date_of_birth;
     @Column(nullable = false)
     private boolean enabled = true;
+
+    public User() {
+    }
+
+    public User(long id, String first_name, String last_name, String phone_number, String emailId, String password, Gender gender, Role role, Date date_of_birth, boolean enabled) {
+        this.id = id;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.phone_number = phone_number;
+        this.emailId = emailId;
+        this.password = password;
+        this.gender = gender;
+        this.role = role;
+        this.date_of_birth = date_of_birth;
+        this.enabled = enabled;
+    }
 
     public long getId() {
         return id;
@@ -73,12 +86,12 @@ public class User  {
         this.phone_number = phone_number;
     }
 
-    public String getEmail_id() {
-        return email_id;
+    public String getEmailId(){
+        return this.emailId;
     }
 
-    public void setEmail_id(String email_id) {
-        this.email_id = email_id;
+    public void setEmailId(String email_id) {
+        this.emailId = email_id;
     }
 
 
